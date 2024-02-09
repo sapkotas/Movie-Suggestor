@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ViewMovie from "./ViewMovie";
 
@@ -11,6 +11,9 @@ const MoviePage = () => {
   const [isError, setIsError] = useState(false);
   const [errorText, setErrorText] = useState("");
 
+  useEffect(() => {
+    fetchMovies();
+  }, []);
   // Function to fetch movies data from API
   const fetchMovies = async () => {
     console.log("Fetching movies");
@@ -34,8 +37,9 @@ const MoviePage = () => {
   return (
     <>
       <div className="App">
-        <button onClick={fetchMovies}>Get All movies</button>
-        <br />
+        <b> Suggested Movies </b>
+        {/* <button onClick={fetchMovies}>Get All movies</button>
+        <br /> */}
         {/* Conditional rendering based on error state 
         yesari pani if else jastai conditional lagauna milxa*/}
         {isError ? (
@@ -69,7 +73,7 @@ const MoviePage = () => {
                   </Link>
                   <img
                     src={el.image}
-                    style={{ height: "250px" }}
+                    style={{ height: "200px" }}
                     alt="Error404"
                   ></img>
                   <br />
