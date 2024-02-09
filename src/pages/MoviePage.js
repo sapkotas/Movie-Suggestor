@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import ViewMovie from "./ViewMovie";
 
 const MoviePage = () => {
   // Define state for movies and a function to update it
@@ -62,8 +64,9 @@ const MoviePage = () => {
                 <div key={el.id}>
                   {/*Key chai unique id ho.error kam garxa vanum na page ma  */}
                   {/* Movie details */}
-                  <b>{el.name}</b>
-                  <br />
+                  <Link to={`/view_movie/${el.id}`}>
+                    <b>{el.name}</b> <br />
+                  </Link>
                   <img
                     src={el.image}
                     style={{ height: "250px" }}
