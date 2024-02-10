@@ -26,7 +26,6 @@ const ViewMovie = () => {
       {/* This is viewPage {getId}
         <button onClick={getSingleMovieInfo}>This is movie page</button>
         <br /> */}
-    
       <b> Movie Details : </b> <br />
       Movie Name :{movieDetails.name} <br /> <br />
       Info :{movieDetails.info};<br /> <br />

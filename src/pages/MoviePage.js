@@ -5,34 +5,40 @@ import ViewMovie from "./ViewMovie";
 
 const MoviePage = () => {
   // Define state for movies and a function to update it
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]); // State to store movie data
 
   // State for handling errors
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(false); // State to indicate if there's an error
   const [errorText, setErrorText] = useState("");
   const [searchMovies, setSearchMovies] = useState("");
 
+  
+
   useEffect(() => {
-    fetchMovies();
+    const fetchTimer = setTimeout(() => {
+      fetchMovies(); // Fetch movies after a delay when searchMovies changes
+    }, 1000);
+
+    return () => {
+      clearTimeout(fetchTimer); // Clear the timeout on component unmount
+    };
+    fetchMovies(); // Fetch movies initially when component mounts
   }, [searchMovies]);
 
-  // useEffect(() => {
-    
-  // }, [searchMovies]);
+
+
+
   // Function to fetch movies data from API
   const fetchMovies = async () => {
-    // console.log("Fetching movies");
     try {
-      // Make API call to get movies data
       const response = await axios.get(
+        // Make a GET request to API
         `https://api.dynoacademy.com/test-api/v1/movies?search=${searchMovies}`
       );
-      // Update movies state with data from API response
-      setMovies(response.data.moviesData);
-      setIsError(false);
+      setMovies(response.data.moviesData); // Update movies state with data from API
+      setIsError(false); // Reset error state
     } catch (error) {
-      // Handle errors
-      setIsError(true);
+      setIsError(true); // Set error state to true if an error occurs
       setErrorText(
         "Error in the page. Cannot get information about the movies."
       );
@@ -43,21 +49,16 @@ const MoviePage = () => {
     <>
       <div className="App">
         <b> Suggested Movies </b>
-        {/* <button onClick={fetchMovies}>Get All movies</button>
-        <br /> */}
-        {/* Conditional rendering based on error state 
-        yesari pani if else jastai conditional lagauna milxa*/}
         <div>
           <input
             type="text"
             placeholder="search movies here"
             value={searchMovies}
-            onChange={(e) => setSearchMovies(e.target.value)}
+            onChange={(e) => setSearchMovies(e.target.value)} // Update searchMovies state on input change
           />
         </div>
         {isError ? (
           <>
-            {/* Display error message */}
             <div
               style={{
                 background: "red",
@@ -66,22 +67,19 @@ const MoviePage = () => {
                 margin: "10px",
               }}
             >
-              {errorText}{" "}
-              {/*this displays the errorText.Check in the setErrorText */}
+              {errorText} {/* Display error message */}
             </div>
           </>
         ) : (
           <>
-            {/* Render movies if there's no error */}
             <div
               style={{ background: "#e7e7e7", padding: "10px", margin: "10px" }}
             >
-              {/* Render the list of movies */}
               {movies.map((el) => (
                 <div key={el.id}>
-                  {/*Key chai unique id ho.error kam garxa vanum na page ma  */}
-                  {/* Movie details */}
                   <Link to={`/view_movie/${el.id}`}>
+                    {" "}
+                    {/* Link to detailed view of movie */}
                     <b>{el.name}</b> <br />
                   </Link>
                   <img
@@ -91,9 +89,9 @@ const MoviePage = () => {
                   ></img>
                   <br />
                   <b>Information:</b>
-                  {el.info}
+                  {el.info} {/* Display movie information */}
                   <br />
-                  <b>Rating:</b> {el.rating}
+                  <b>Rating:</b> {el.rating} {/* Display movie rating */}
                   <br />
                   <br />
                 </div>
