@@ -10,10 +10,15 @@ const MoviePage = () => {
   // State for handling errors
   const [isError, setIsError] = useState(false);
   const [errorText, setErrorText] = useState("");
+  const [searchMovies, setSearchMovies] = useState("");
 
   useEffect(() => {
     fetchMovies();
   }, []);
+
+  useEffect(() => {
+    console.log("something changed...");
+  }, [searchMovies]);
   // Function to fetch movies data from API
   const fetchMovies = async () => {
     console.log("Fetching movies");
@@ -42,6 +47,14 @@ const MoviePage = () => {
         <br /> */}
         {/* Conditional rendering based on error state 
         yesari pani if else jastai conditional lagauna milxa*/}
+        <div>
+          <input
+            type="text"
+            placeholder="search movies here"
+            value={searchMovies}
+            onChange={(e) => setSearchMovies(e.target.value)}
+          />
+        </div>
         {isError ? (
           <>
             {/* Display error message */}
