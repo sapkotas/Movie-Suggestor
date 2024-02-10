@@ -14,18 +14,18 @@ const MoviePage = () => {
 
   useEffect(() => {
     fetchMovies();
-  }, []);
-
-  useEffect(() => {
-    console.log("something changed...");
   }, [searchMovies]);
+
+  // useEffect(() => {
+    
+  // }, [searchMovies]);
   // Function to fetch movies data from API
   const fetchMovies = async () => {
-    console.log("Fetching movies");
+    // console.log("Fetching movies");
     try {
       // Make API call to get movies data
       const response = await axios.get(
-        "https://api.dynoacademy.com/test-api/v1/movies"
+        `https://api.dynoacademy.com/test-api/v1/movies?search=${searchMovies}`
       );
       // Update movies state with data from API response
       setMovies(response.data.moviesData);
