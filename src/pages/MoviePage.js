@@ -11,12 +11,17 @@ const MoviePage = () => {
   const [isError, setIsError] = useState(false); // State to indicate if there's an error
   const [errorText, setErrorText] = useState("");
   const [searchMovies, setSearchMovies] = useState("");
-
-  
+  const [searchError, setSearchError] = useState(false);
 
   useEffect(() => {
     const fetchTimer = setTimeout(() => {
-      fetchMovies(); // Fetch movies after a delay when searchMovies changes
+      if (searchMovies && searchMovies.length > 2) {
+        fetchMovies(); // Fetch movies after a delay when searchMovies changes
+      } else if (searchMovies.length < 1) {
+        fetchMovies();
+      } else {
+        setSearchError("Please enter at least 3 letters.");
+      }
     }, 1000);
 
     return () => {
@@ -25,11 +30,9 @@ const MoviePage = () => {
     fetchMovies(); // Fetch movies initially when component mounts
   }, [searchMovies]);
 
-
-
-
   // Function to fetch movies data from API
   const fetchMovies = async () => {
+    setSearchError("");
     try {
       const response = await axios.get(
         // Make a GET request to API
@@ -57,6 +60,7 @@ const MoviePage = () => {
             onChange={(e) => setSearchMovies(e.target.value)} // Update searchMovies state on input change
           />
         </div>
+        <span style={{ color: "red" }}>{searchError}</span>
         {isError ? (
           <>
             <div
