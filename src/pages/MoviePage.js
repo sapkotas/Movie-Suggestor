@@ -13,6 +13,8 @@ const MoviePage = () => {
   const [searchMovies, setSearchMovies] = useState("");
   const [searchError, setSearchError] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const fetchTimer = setTimeout(() => {
       if (searchMovies && searchMovies.length > 2) {
@@ -40,11 +42,13 @@ const MoviePage = () => {
       );
       setMovies(response.data.moviesData); // Update movies state with data from API
       setIsError(false); // Reset error state
+      setLoading(false);
     } catch (error) {
       setIsError(true); // Set error state to true if an error occurs
       setErrorText(
         "Error in the page. Cannot get information about the movies."
       );
+      setLoading(false);
     }
   };
 
@@ -61,6 +65,7 @@ const MoviePage = () => {
           />
         </div>
         <span style={{ color: "red" }}>{searchError}</span>
+
         {isError ? (
           <>
             <div
@@ -79,27 +84,34 @@ const MoviePage = () => {
             <div
               style={{ background: "#e7e7e7", padding: "10px", margin: "10px" }}
             >
-              {movies.map((el) => (
-                <div key={el.id}>
-                  <Link to={`/view_movie/${el.id}`}>
-                    {" "}
-                    {/* Link to detailed view of movie */}
-                    <b>{el.name}</b> <br />
-                  </Link>
-                  <img
-                    src={el.image}
-                    style={{ height: "200px" }}
-                    alt="Error404"
-                  ></img>
-                  <br />
-                  <b>Information:</b>
-                  {el.info} {/* Display movie information */}
-                  <br />
-                  <b>Rating:</b> {el.rating} {/* Display movie rating */}
-                  <br />
-                  <br />
-                </div>
-              ))}
+              {movies.length < 1 ? (
+                "No movies found"
+              ) : (
+                <>
+                  {" "}
+                  {movies.map((el) => (
+                    <div key={el.id}>
+                      <Link to={`/view_movie/${el.id}`}>
+                        {" "}
+                        {/* Link to detailed view of movie */}
+                        <b>{el.name}</b> <br />
+                      </Link>
+                      <img
+                        src={el.image}
+                        style={{ height: "200px" }}
+                        alt="Error404"
+                      />
+                      <br />
+                      <b>Information:</b>
+                      {el.info} {/* Display movie information */}
+                      <br />
+                      <b>Rating:</b> {el.rating} {/* Display movie rating */}
+                      <br />
+                      <br />
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
           </>
         )}
