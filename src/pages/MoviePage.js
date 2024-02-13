@@ -54,6 +54,9 @@ const MoviePage = () => {
   return (
     <>
       <div className="App">
+        <div>
+          <Link to="/add">Add Movies</Link>
+        </div>
         <b> Suggested Movies </b>
         <div>
           <input
