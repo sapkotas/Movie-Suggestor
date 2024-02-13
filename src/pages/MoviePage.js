@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ViewMovie from "./ViewMovie";
 
 const MoviePage = () => {
   // Define state for movies and a function to update it
@@ -48,7 +47,7 @@ const MoviePage = () => {
       setErrorText(
         "Error in the page. Cannot get information about the movies."
       );
-      setLoading(false);
+      setLoading(true);
     }
   };
 
@@ -84,8 +83,10 @@ const MoviePage = () => {
             <div
               style={{ background: "#e7e7e7", padding: "10px", margin: "10px" }}
             >
-              {movies.length < 1 ? (
-                "No movies found"
+              <div> {loading ? <> Loading ....</> : <></>}</div>
+
+              {!loading && movies.length < 1 ? (
+                <>No movies found!</>
               ) : (
                 <>
                   {" "}
