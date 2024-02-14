@@ -68,7 +68,7 @@ const MoviePage = () => {
           />
         </div>
         <span style={{ color: "red" }}>{searchError}</span>
-<div></div>
+
         {isError ? (
           <>
             <div
