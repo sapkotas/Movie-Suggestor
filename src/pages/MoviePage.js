@@ -13,6 +13,7 @@ const MoviePage = () => {
   const [searchError, setSearchError] = useState(false);
 
   const [loading, setLoading] = useState(false);
+  useEffect(() => {}, []);
 
   useEffect(() => {
     const fetchTimer = setTimeout(() => {
