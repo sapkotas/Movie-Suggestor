@@ -13,8 +13,9 @@ const LoginPage = (e) => {
 
     try {
       const response = await axios.post(
-"https://api.dynoacademy.com/test-api/v1/login",loginData,
+        "https://api.dynoacademy.com/test-api/v1/login",
         loginData,
+
         {
           timeout: 2000,
         }
