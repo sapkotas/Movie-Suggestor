@@ -1,22 +1,28 @@
 import axios from "axios";
+import { useRef } from "react";
 
 const LoginPage = (e) => {
+  const email = useRef();
+  const password = useRef();
   const loginHandler = async () => {
     e.preventDefault();
     const loginData = {
-      email: "dyno@gmail.com",
-      password: "123456",
+      email: email.current.value,
+      password: password.current.value,
     };
 
     try {
       const response = await axios.post(
-        "https://api.dynoacademy.com/test-api/v1/login ",
+"https://api.dynoacademy.com/test-api/v1/login",loginData,
         loginData,
         {
-          timeout: 10000,
+          timeout: 2000,
         }
       );
       alert(response.data.message);
+      if (response.data.status === "sucesss") {
+        alert("Logged in sucesssfully");
+      }
     } catch (error) {
       if (error.response) {
         alert(error.response.data.errors[0].message);
@@ -29,14 +35,14 @@ const LoginPage = (e) => {
     <>
       This is a login page
       <br />
-      Username:
-      <br />
       <form onSubmit={loginHandler}>
-        <input type="text" />
+        Username:
+        <br />
+        <input type="text" ref={email} />
         <br />
         password:
         <br />
-        <input type="password" />
+        <input type="password" ref={password} />
         <br />
         <button>Login</button>
         <br />
