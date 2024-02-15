@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AddMovie = () => {
   const movierefrence = useRef();
   const ratingrefrence = useRef();
   const descrefrence = useRef();
+
+  const navigate = useNavigate();
   const addMovieHandler = async (e) => {
     e.preventDefault();
 
@@ -18,10 +20,20 @@ const AddMovie = () => {
     try {
       const response = await axios.post(
         "https://api.dynoacademy.com/test-api/v1/movies ",
-        movieData
+        movieData,
+        {
+          timeout: 1000,
+        }
       );
       alert(response.data.message);
-    } catch (error) {}
+      navigate("/", { replace: true });
+    } catch (error) {
+      if (error.response) {
+        alert(error.response.data.errors[0].message);
+      } else {
+        alert("Unknown error occured!");
+      }
+    }
   };
   return (
     <>
