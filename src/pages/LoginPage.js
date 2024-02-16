@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const email = useRef();
   const password = useRef();
   const loginHandler = async (e) => {
@@ -23,10 +24,11 @@ const LoginPage = () => {
       );
       if (response.data.status === "success") {
         alert("Logged in sucessfully!");
+        navigate("/", { replace: true });
       }
       // alert(response.data.message);
-      // const getAccessToken = response.data.accessToken;
-      // localStorage.setItem("accessToken", getAccessToken);
+      const getAccessToken = response.data.accessToken;
+      localStorage.setItem("accessToken", getAccessToken);
     } catch (error) {
       if (error.response) {
         alert(error.response.data.errors[0].message);
@@ -37,8 +39,7 @@ const LoginPage = () => {
   };
   return (
     <>
-      This is a login page
-      <Link to="/">Home</Link>
+      To access Please,<b>Login</b> here first.
       <br />
       <form onSubmit={loginHandler}>
         Email:
@@ -52,6 +53,7 @@ const LoginPage = () => {
         <button>Login</button>
         <br />
       </form>
+      <Link to="/">Home</Link>
     </>
   );
 };

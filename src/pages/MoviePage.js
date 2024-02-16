@@ -57,7 +57,15 @@ const MoviePage = () => {
       <div className="App">
         <div>
           <Link to="/add">Add Movies</Link>||
-          <Link to="/login"> Login</Link>
+          {localStorage.getItem("accessToken") ? (
+            <>
+              <Link to="/profile">Profile</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/login"> Login</Link>
+            </>
+          )}
         </div>
         <b> Suggested Movies </b>
         <div>

@@ -4,6 +4,7 @@ import MoviePage from "../pages/MoviePage";
 import ViewMovie from "../pages/ViewMovie";
 import AddMovie from "../pages/AddMovie";
 import LoginPage from "../pages/LoginPage";
+import Profile from "../pages/Profile";
 
 const Router = () => {
   return (
@@ -15,6 +16,7 @@ const Router = () => {
             <Route path="/view_movie/:id" element={<ViewMovie />} />
             <Route path="/add" element={<AddMovie />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </BrowserRouter>
       </>
