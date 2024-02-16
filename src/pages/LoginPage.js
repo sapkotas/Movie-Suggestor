@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useRef } from "react";
 
-const LoginPage = (e) => {
+const LoginPage = () => {
   const email = useRef();
   const password = useRef();
   const loginHandler = async () => {
-    e.preventDefault();
+    // e.preventDefault();
     const loginData = {
       email: email.current.value,
       password: password.current.value,
@@ -20,6 +20,8 @@ const LoginPage = (e) => {
           timeout: 2000,
         }
       );
+      const getAccessToken = response.data.accessToken;
+      localStorage.setItem("accessToken", getAccessToken);
       alert(response.data.message);
       if (response.data.status === "sucesss") {
         alert("Logged in sucesssfully");
@@ -37,13 +39,13 @@ const LoginPage = (e) => {
       This is a login page
       <br />
       <form onSubmit={loginHandler}>
-        Username:
+        Email:
         <br />
-        <input type="text" ref={email} />
+        <input type="text" ref={email} autoComplete="false" />
         <br />
         password:
         <br />
-        <input type="password" ref={password} />
+        <input type="password" ref={password} autoComplete="false" />
         <br />
         <button>Login</button>
         <br />
