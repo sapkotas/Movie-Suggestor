@@ -45,7 +45,7 @@ const LoginPage = () => {
         <br />
         password:
         <br />
-        <input type="password" ref={password} autoComplete="false" /> hellogi
+        <input type="password" ref={password} autoComplete="false" /> 
         <br />
         <button>Login</button>
         <br />
