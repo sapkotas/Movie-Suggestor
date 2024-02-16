@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const email = useRef();
   const password = useRef();
-  const loginHandler = async () => {
-    // e.preventDefault();
+  const loginHandler = async (e) => {
+    e.preventDefault();
     const loginData = {
       email: email.current.value,
       password: password.current.value,
@@ -20,12 +21,12 @@ const LoginPage = () => {
           timeout: 2000,
         }
       );
-      const getAccessToken = response.data.accessToken;
-      localStorage.setItem("accessToken", getAccessToken);
-      alert(response.data.message);
-      if (response.data.status === "sucesss") {
-        alert("Logged in sucesssfully");
+      if (response.data.status === "success") {
+        alert("Logged in sucessfully!");
       }
+      // alert(response.data.message);
+      // const getAccessToken = response.data.accessToken;
+      // localStorage.setItem("accessToken", getAccessToken);
     } catch (error) {
       if (error.response) {
         alert(error.response.data.errors[0].message);
@@ -37,6 +38,7 @@ const LoginPage = () => {
   return (
     <>
       This is a login page
+      <Link to="/">Home</Link>
       <br />
       <form onSubmit={loginHandler}>
         Email:
@@ -45,7 +47,7 @@ const LoginPage = () => {
         <br />
         password:
         <br />
-        <input type="password" ref={password} autoComplete="false" /> 
+        <input type="password" ref={password} autoComplete="false" />
         <br />
         <button>Login</button>
         <br />
