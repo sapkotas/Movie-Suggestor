@@ -35,6 +35,6 @@ const Profile = () => {
     localStorage.removeItem("accessToken");
     navigate("/login");
   };
-  return <button onClick={onLogout}>Logout</button>;hello
+  return <button onClick={onLogout}>Logout</button>;
 };
 export default Profile;
