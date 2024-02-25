@@ -48,7 +48,7 @@ const LoginPage = () => {
         <br />
         password:
         <br />
-        <input type="password" ref={password} autoComplete="false" />sunab
+        <input type="password" ref={password} autoComplete="false" />
         <br />
         <button>Login</button>
         <br />
