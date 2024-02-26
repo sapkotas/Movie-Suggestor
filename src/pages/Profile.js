@@ -35,6 +35,6 @@ const Profile = () => {
     localStorage.removeItem("accessToken");
     navigate("/login");
   };
-  return <button onClick={onLogout}>Logout</button>;sunav
+  return <button onClick={onLogout}>Logout</button>;
 };
 export default Profile;
