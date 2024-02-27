@@ -59,7 +59,7 @@ const MoviePage = () => {
           <Link to="/add">Add Movies</Link>||
           {localStorage.getItem("accessToken") ? (
             <>
-              <Link to="/profile">Profile</Link>
+              <Link to="/profile">Profile</Link>sunab
             </>
           ) : (
             <>
