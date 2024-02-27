@@ -63,7 +63,7 @@ const MoviePage = () => {
             </>
           ) : (
             <>
-              <Link to="/login"> Login</Link>a
+              <Link to="/login"> Login</Link>
             </>
           )}
         </div>
