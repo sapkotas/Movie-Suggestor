@@ -61,4 +61,3 @@ const AddMovie = () => {
   );
 };
 export default AddMovie;
-sunav
