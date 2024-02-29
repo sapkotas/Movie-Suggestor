@@ -38,7 +38,7 @@ const ViewMovie = () => {
         alt="Imageisloading..."
       ></img>{" "}
       <br /> <br />
-      Rating: {movieDetails.rating}
+      Rating: {movieDetails.rating}<br></br>
       <br />
       <br />
     </>
