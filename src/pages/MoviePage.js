@@ -25,12 +25,13 @@ const MoviePage = () => {
         setSearchError("Please enter at least 3 letters.");
       }
     }, 1000);
-
+  
     return () => {
       clearTimeout(fetchTimer); // Clear the timeout on component unmount
-      fetchMovies(); // Fetch movies initially when component mounts
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchMovies]);
+  
 
   // Function to fetch movies data from API
   const fetchMovies = async () => {
