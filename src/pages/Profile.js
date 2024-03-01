@@ -46,7 +46,7 @@ const Profile = () => {
       <br />
       Country:{userData.country} <br />
       <button onClick={onLogout}>Logout</button>
-    </>sunabgit 
+    </>
   );
 };
 export default Profile;
