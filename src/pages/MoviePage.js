@@ -118,7 +118,7 @@ const MoviePage = () => {
                       <b>Information:</b>
                       {el.info} {/* Display movie information */}
                       <br />
-                      <b>Rating:</b> {el.rating} {/* Display movie rating */}
+                      <b>Rating:</b> {el.rating} {/* Display movie rating */}sunab
                       <br />
                       <br />
                     </div>
