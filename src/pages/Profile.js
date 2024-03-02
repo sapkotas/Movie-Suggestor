@@ -45,7 +45,7 @@ const Profile = () => {
       Email;{userData.email}
       <br />
       Country:{userData.country} <br />
-      <button onClick={onLogout}>Logout</button>sunab
+      <button onClick={onLogout}>Logout</button>
     </>
   );
 };
