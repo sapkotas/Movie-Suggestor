@@ -44,4 +44,4 @@ const ViewMovie = () => {
     </>
   );
 };
-export default ViewMovie;suan
+export default ViewMovie;
