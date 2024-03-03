@@ -44,4 +44,3 @@ const ViewMovie = () => {
   );
 };
 export default ViewMovie;
-sunav
