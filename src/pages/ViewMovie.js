@@ -1,10 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Button, Card, Container } from "react-bootstrap";
+import { Link, useParams } from "react-router-dom";
+import MovieNavBar from "../components/MovieNavBar";
 
 const ViewMovie = () => {
-  const { id } = useParams();
-  const [movieDetails, setMovieDetails] = useState({});
+  const { id } = useParams(); // Destructure useParams directly
+
+  const [movieData, setMovieData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getSingleMovieInfo = async () => {
@@ -12,35 +17,53 @@ const ViewMovie = () => {
         const response = await axios.get(
           `https://api.dynoacademy.com/test-api/v1/movie/${id}`
         );
-        console.log("Response:", response); // Logging the response
-        setMovieDetails(response.data.singleMovieData);
+        setMovieData(response.data.singleMovieData);
+        setLoading(false);
       } catch (error) {
-        console.error("Error fetching movie details:", error); // Logging the error
-        alert("Error found in the page");
+        setError("Error occurred while fetching data.");
+        setLoading(false);
       }
     };
 
-    getSingleMovieInfo(); // Call the function directly inside useEffect
-  }, [id]); // Include id as a dependency
+    getSingleMovieInfo();
+  }, [id]); // Depend on `id` parameter changes
 
   return (
     <>
-      <b> Movie Details : </b> <br />
-      Movie Name :{movieDetails.name} <br /> <br />
-      Info :{movieDetails.info};<br /> <br />
-      Description:{movieDetails.desc}
-      <br /> <br />
-      Image:
-      <img
-        src={movieDetails.image}
-        style={{ height: "200px" }}
-        alt="Imageisloading..."
-      ></img>{" "}
-      <br /> <br />
-      Rating: {movieDetails.rating}
-      <br />
-      <br />
+      <MovieNavBar />
+      <Container>
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : (
+          <>
+            <h1 className="text-info">{movieData.name}</h1>
+            <br />
+            <p>Info: {movieData.info}</p>
+            <Card body>{movieData.desc}</Card>
+            <br />
+            <Card body>
+              Image: <br />
+              <img
+                src={movieData.image}
+                style={{ height: "200px" }}
+                alt="Imageisloading..."
+              ></img>{" "}
+            </Card>
+            <br />
+            <Card body>Rating: {movieData.rating}</Card>
+            <br />
+            <Link to="/">
+              <Button className="bg-dark">Go Back!</Button>
+            </Link>
+            <br />
+            <br />
+          </>
+        )}
+      </Container>
     </>
   );
 };
+
 export default ViewMovie;

@@ -1,10 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import MovieNavBar from "../components/MovieNavBar";
+
+import { Button, Container, Modal } from "react-bootstrap";
 
 const Profile = () => {
   const [userData, setUserData] = useState({});
-  const navigate = useNavigate();
+
+  const [modalShown, setModalShown] = useState(false);
+
+  const history = useHistory();
+
   useEffect(() => {
     getProfile();
   }, []);
@@ -13,40 +20,72 @@ const Profile = () => {
     const getAccessToken = localStorage.getItem("accessToken");
     try {
       const response = await axios.get(
-        "https://api.dynoacademy.com/test-api/v1/me ",
-
+        "https://api.dynoacademy.com/test-api/v1/me",
         {
-          timeout: 1000,
+          timeout: 10000,
           headers: {
-            Authorization: `Bearer ${getAccessToken} `,
+            Authorization: `Bearer ${getAccessToken}`,
           },
         }
       );
       setUserData(response.data.data);
-      // navigate("/", { replace: true });
     } catch (error) {
       if (error.response) {
         alert(error.response.data.errors[0].message);
       } else {
-        alert("Unknown error occured!");
+        alert("Unknown error occoured! Try again later.");
       }
     }
   };
 
   const onLogout = () => {
-    localStorage.removeItem("accessToken");
-    navigate("/login");
+    setModalShown(true);
   };
+
   return (
     <>
-      <Link to ="/">Home</Link><br/><br/>
-      Name:{userData.name}
-      <br />
-      Email;{userData.email}
-      <br />
-      Country:{userData.country} <br />
-      <button onClick={onLogout}>Logout</button>
+      <MovieNavBar />
+
+      <Container className="mt-1">
+        Name: {userData.name} <br />
+        Email: {userData.email} <br />
+        Country: {userData.country} <br />
+        <br />
+        <Button onClick={onLogout} variant="danger" type="button">
+          Logout
+        </Button>
+      </Container>
+
+      <Modal
+        show={modalShown}
+        onHide={() => {
+          setModalShown(false);
+        }}
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>Are you sure you want to logout?</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setModalShown(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => {
+              localStorage.removeItem("accessToken");
+              history.push("/");
+            }}
+          >
+            Logout
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
+
 export default Profile;
