@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import MoviePage from "../pages/MoviePage";
+import Index from "../pages/Index";
 import ViewMovie from "../pages/ViewMovie";
 import AddMovie from "../pages/AddMovie";
 import LoginPage from "../pages/LoginPage";
@@ -12,7 +12,7 @@ const Router = () => {
       <>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<MoviePage />} />
+            <Route path="/" element={<Index />} />
             <Route path="/view_movie/:id" element={<ViewMovie />} />
             <Route path="/add" element={<AddMovie />} />
             <Route path="/login" element={<LoginPage />} />
