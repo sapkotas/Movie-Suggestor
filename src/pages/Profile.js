@@ -1,16 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Navigate } from "react-router-dom"; // Import navigate
 import MovieNavBar from "../components/MovieNavBar";
-
 import { Button, Container, Modal } from "react-bootstrap";
 
 const Profile = () => {
   const [userData, setUserData] = useState({});
-
   const [modalShown, setModalShown] = useState(false);
-
-  const history = useHistory();
 
   useEffect(() => {
     getProfile();
@@ -33,7 +29,7 @@ const Profile = () => {
       if (error.response) {
         alert(error.response.data.errors[0].message);
       } else {
-        alert("Unknown error occoured! Try again later.");
+        alert("Unknown error occurred! Try again later.");
       }
     }
   };
@@ -77,7 +73,7 @@ const Profile = () => {
             variant="danger"
             onClick={() => {
               localStorage.removeItem("accessToken");
-              history.push("/");
+              Navigate("/"); // Use navigate instead of history
             }}
           >
             Logout

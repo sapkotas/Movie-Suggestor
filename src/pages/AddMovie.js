@@ -1,12 +1,10 @@
 import axios from "axios";
 import { useRef } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
-import MovieNavBar from "../components/MovieNavBar";
+import { Navigate } from "react-router-dom"; 
+import MovieNavBar  from "../components/MovieNavBar";
 
 const AddMovie = () => {
-  const history = useHistory();
-
   const movie_name_reference = useRef();
   const rating_reference = useRef();
   const desc_reference = useRef();
@@ -29,12 +27,12 @@ const AddMovie = () => {
         }
       );
       alert(response.data.message);
-      history.replace("/");
+      Navigate("/"); // Use navigate instead of history
     } catch (error) {
       if (error.response) {
         alert(error.response.data.errors[0].message);
       } else {
-        alert("Unknown error occoured! Try again later.");
+        alert("Unknown error occurred! Try again later.");
       }
     }
   };

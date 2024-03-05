@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Navigate } from "react-router-dom"; // Import navigate
 import MovieNavBar from "../components/MovieNavBar";
 import { Button, Container, Form, Modal } from "react-bootstrap";
 
@@ -10,8 +10,6 @@ const Login = () => {
 
   const [modalShown, setModalShown] = useState(false);
   const [modalText, setModalText] = useState("");
-
-  const history = useHistory();
 
   const loginHandler = async (e) => {
     e.preventDefault();
@@ -28,7 +26,6 @@ const Login = () => {
           timeout: 10000,
         }
       );
-      //   alert(response.data.message);
 
       const getAccessToken = response.data.accessToken;
 
@@ -40,14 +37,14 @@ const Login = () => {
       }
 
       setTimeout(() => {
-        history.replace("/");
-      }, 2000);
+        Navigate("/"); // Use navigate instead of history
+      }, 1000);
     } catch (error) {
       if (error.response) {
         setModalText(error.response.data.errors[0].message);
         setModalShown(true);
       } else {
-        setModalText("Unknown error occoured! Try again later.");
+        setModalText("Unknown error occurred! Try again later.");
         setModalShown(true);
       }
     }
@@ -60,8 +57,6 @@ const Login = () => {
       <Container>
         <h3>Login screen</h3>
         <form onSubmit={loginHandler}>
-          {/* Email: <br />
-          <input type="text" ref={email}></input> <br /> */}
           <Form.Group className="mb-3">
             <Form.Label>Email address</Form.Label>
             <Form.Control
@@ -70,12 +65,7 @@ const Login = () => {
               ref={email}
               autoComplete={false}
             />
-            {/* <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text> */}
           </Form.Group>
-          {/* Password: <br />
-          <input type="password" ref={password}></input> <br /> */}
           <Form.Group className="mb-3">
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" ref={password} autoComplete={false} />
@@ -103,9 +93,6 @@ const Login = () => {
           >
             Close
           </Button>
-          {/* <Button variant="primary" onClick={() => {}}>
-            Save Changes
-          </Button> */}
         </Modal.Footer>
       </Modal>
     </>
